@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Actor{% endblock %}
+
+{% block body %}
+    <h1>Acteurs</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ actor.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ actor.name }}</td>
+            </tr>
+            <tr>
+                <th>Liste des séries</th>
+                <td>
+                    {% for program in actor.programs %}
+                        <a href="{{ path('program_show', {'id': program.id}) }}">
+                            <li>{{ program.title }} </li>
+                        </a>
+                    {% else %}
+                        <li>Aucune série pour cet acteur</li>
+                    {% endfor %}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('actor_index') }}">Retour à la Liste</a>
+
+    <a href="{{ path('actor_edit', {'id': actor.id}) }}">Editer</a>
+
+    {{ include('actor/_delete_form.html.twig') }}
+{% endblock %}
